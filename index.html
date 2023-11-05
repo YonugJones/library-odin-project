@@ -8,9 +8,10 @@
     <script src="app.js" defer></script>
 </head>
 <body>
-
-    <button id="new-book-btn">New Book</button>
-    <form id="new-book-form">
+    <div class="new-book-section">
+        <button id="new-book-btn">New Book</button>
+    </div>
+    <form id="new-book-form" style="display: none;">
         <div class="form-group">
             <label for="title">Title:</label>
             <input type="text" id="title">
@@ -32,6 +33,6 @@
             <button id="submit-btn">Submit</button>
         </div>
     </form>
-    
+    <div id="library"></div>
 </body>
 </html>

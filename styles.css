@@ -7,15 +7,35 @@
     --color-six: #9fa2b2;
 }
 
-#new-book-btn {
+body {
+    background-color: var(--color-one);
+}
+
+.new-book-section {
     display: flex;
     justify-content: center;
+    align-items: center;
+    margin: 10px;
 }
 
 #new-book-form {
     border: 1px solid var(--color-three);
-    width: 500px;
+    width: 300px;
     margin: 0 auto;
     padding: 30px;
-    
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 2px 2px 5px gray;
+}
+
+.form-group {
+    margin-bottom: 10px;
+}
+
+.form-btns {
+    display: flex;
+    gap: 30px;
 }
