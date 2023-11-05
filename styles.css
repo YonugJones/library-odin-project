@@ -1,0 +1,21 @@
+:root {
+    --color-one: #dbc2cf;
+    --color-two: #2e4756;
+    --color-three: #16262e;
+    --color-four: rgb(150, 61, 90);
+    --color-five: #3c7a89;
+    --color-six: #9fa2b2;
+}
+
+#new-book-btn {
+    display: flex;
+    justify-content: center;
+}
+
+#new-book-form {
+    border: 1px solid var(--color-three);
+    width: 500px;
+    margin: 0 auto;
+    padding: 30px;
+    
+}

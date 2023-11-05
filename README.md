@@ -1,2 +1,3 @@
 # library-odin-project
-LIbrary Odin Project
+Library Odin Project
+Project Date November 5 2023
