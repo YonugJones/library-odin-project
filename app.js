@@ -56,10 +56,36 @@ function updateDisplay() {
         cardRead.classList.add('card-read');
         cardRead.textContent = `${book.read ? 'Completed' : 'Not yet completed'}`;
 
+        cardRead.addEventListener('click', function() {
+            book.read = !book.read;
+            updateDisplay();
+        });
+
+        let removeBookBtn = document.createElement('button');
+        removeBookBtn.id = 'remove-book-button';
+        
+        let trashIcon = document.createElement('img');
+        trashIcon.classList.add('remove-book-btn');
+        trashIcon.src = 'img/trash.png';
+        trashIcon.alt = 'trash can image';
+
+        let buttonText = document.createTextNode('Remove Book');
+
+        removeBookBtn.appendChild(trashIcon);
+        removeBookBtn.appendChild(buttonText);
+
+        trashIcon.addEventListener('click', function() {
+            const index = myLibrary.indexOf(book);
+            bookShelf.removeChild(bookCard);
+            myLibrary.splice(index, 1);
+            updateDisplay();
+        })
+
         bookCard.appendChild(cardTitle);
         bookCard.appendChild(cardAuthor);
         bookCard.appendChild(cardPages);
         bookCard.appendChild(cardRead);
+        bookCard.appendChild(trashIcon);
 
         bookShelf.appendChild(bookCard);
     }
