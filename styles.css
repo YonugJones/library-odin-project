@@ -1,14 +1,14 @@
 :root {
-    --color-one: #dbc2cf;
+    --color-one: #e3d2db;
     --color-two: #2e4756;
     --color-three: #16262e;
-    --color-four: rgb(150, 61, 90);
+    --color-four: rgb(162, 94, 117);
     --color-five: #3c7a89;
     --color-six: #9fa2b2;
 }
 
 body {
-    background-color: var(--color-one);
+    background-color: var(--color-two);
 }
 
 .new-book-section {
@@ -19,6 +19,11 @@ body {
 }
 
 #new-book-form {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: var(--color-one);
     border: 1px solid var(--color-three);
     width: 300px;
     margin: 0 auto;
@@ -48,7 +53,8 @@ body {
 }
 
 .book-card {
-    border: 1px solid black;
+    background-color: var(--color-one);
+    border: 3px solid var(--color-four);
     border-radius: 10px;
     box-shadow: 2px 2px 5px gray;
     padding: 10px 20px;
