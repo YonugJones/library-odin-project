@@ -1,94 +1,94 @@
 const myLibrary = [];
 
-function Book(title, author, pages, read) {
-    this.title = title
-    this.author = author
-    this.pages = pages
-    this.read = read
-}
+class Book {
+    constructor(title, author, pages, read) {
+        this.title = title
+        this.author = author
+        this.pages = pages
+        this.read = read
+    };
+    static addBookToLibrary() {
+        let title = document.getElementById('title').value;
+        let author = document.getElementById('author').value;
+        let pagesInput = document.getElementById('pages').value;
+        let pages = parseInt(pagesInput);
+        let read = document.getElementById('read').value;
 
-function addBookToLibrary() {
-    let title = document.getElementById('title').value;
-    let author = document.getElementById('author').value;
-    let pagesInput = document.getElementById('pages').value;
-    let pages = parseInt(pagesInput);
-    let read = document.getElementById('read').value;
+        if (isNaN(pages) || pages <= 0) {
+            alert('Please enter a valid number')
+            return;
+        }
 
-    if (isNaN(pages) || pages <= 0) {
-        alert('Please enter a valid number')
-        return;
-    }
+        let newBookForm = document.getElementById('new-book-form');
+        newBookForm.style.display = 'none';
 
-    let newBookForm = document.getElementById('new-book-form');
-    newBookForm.style.display = 'none';
+        let newBook = new Book(title, author, pages, read);
+        myLibrary.push(newBook);
+        Book.updateDisplay();
+    };
+    static updateDisplay() {
+        let bookShelf = document.getElementById('book-shelf');
 
-    let newBook = new Book(title, author, pages, read);
-    myLibrary.push(newBook);
-    updateDisplay();
-};
+        while(bookShelf.firstChild) {
+            bookShelf.removeChild(bookShelf.firstChild);
+        }
 
-function updateDisplay() {
-    let bookShelf = document.getElementById('book-shelf');
+        for (let i = 0; i < myLibrary.length; i++) {
+            let book = myLibrary[i];
 
-    while(bookShelf.firstChild) {
-        bookShelf.removeChild(bookShelf.firstChild);
-    }
+            let bookCard = document.createElement('div');
+            bookCard.classList.add('book-card');
 
-    for (let i = 0; i < myLibrary.length; i++) {
-        let book = myLibrary[i];
+            let cardTitle = document.createElement('h2');
+            cardTitle.classList.add('card-title');
+            cardTitle.textContent = `${book.title}`;
 
-        let bookCard = document.createElement('div');
-        bookCard.classList.add('book-card');
+            let cardAuthor = document.createElement('p');
+            cardAuthor.classList.add('card-author');
+            cardAuthor.textContent = `${book.author}`;
 
-        let cardTitle = document.createElement('h2');
-        cardTitle.classList.add('card-title');
-        cardTitle.textContent = `${book.title}`;
+            let cardPages = document.createElement('p');
+            cardPages.classList.add('p');
+            cardPages.textContent = `${book.pages} pages`;
 
-        let cardAuthor = document.createElement('p');
-        cardAuthor.classList.add('card-author');
-        cardAuthor.textContent = `${book.author}`;
+            let cardRead = document.createElement('p');
+            cardRead.classList.add('card-read');
+            cardRead.textContent = `${book.read ? 'Completed' : 'Not yet completed'}`;
 
-        let cardPages = document.createElement('p');
-        cardPages.classList.add('p');
-        cardPages.textContent = `${book.pages} pages`;
+            cardRead.addEventListener('click', function() {
+                book.read = !book.read;
+                Book.updateDisplay();
+            });
 
-        let cardRead = document.createElement('p');
-        cardRead.classList.add('card-read');
-        cardRead.textContent = `${book.read ? 'Completed' : 'Not yet completed'}`;
+            let removeBookBtn = document.createElement('button');
+            removeBookBtn.id = 'remove-book-button';
+            
+            let trashIcon = document.createElement('img');
+            trashIcon.classList.add('remove-book-btn');
+            trashIcon.src = 'img/trash.png';
+            trashIcon.alt = 'trash can image';
 
-        cardRead.addEventListener('click', function() {
-            book.read = !book.read;
-            updateDisplay();
-        });
+            let buttonText = document.createTextNode('Remove Book');
 
-        let removeBookBtn = document.createElement('button');
-        removeBookBtn.id = 'remove-book-button';
-        
-        let trashIcon = document.createElement('img');
-        trashIcon.classList.add('remove-book-btn');
-        trashIcon.src = 'img/trash.png';
-        trashIcon.alt = 'trash can image';
+            removeBookBtn.appendChild(trashIcon);
+            removeBookBtn.appendChild(buttonText);
 
-        let buttonText = document.createTextNode('Remove Book');
+            trashIcon.addEventListener('click', function() {
+                const index = myLibrary.indexOf(book);
+                bookShelf.removeChild(bookCard);
+                myLibrary.splice(index, 1);
+                Book.updateDisplay();
+            })
 
-        removeBookBtn.appendChild(trashIcon);
-        removeBookBtn.appendChild(buttonText);
+            bookCard.appendChild(cardTitle);
+            bookCard.appendChild(cardAuthor);
+            bookCard.appendChild(cardPages);
+            bookCard.appendChild(cardRead);
+            bookCard.appendChild(trashIcon);
 
-        trashIcon.addEventListener('click', function() {
-            const index = myLibrary.indexOf(book);
-            bookShelf.removeChild(bookCard);
-            myLibrary.splice(index, 1);
-            updateDisplay();
-        })
-
-        bookCard.appendChild(cardTitle);
-        bookCard.appendChild(cardAuthor);
-        bookCard.appendChild(cardPages);
-        bookCard.appendChild(cardRead);
-        bookCard.appendChild(trashIcon);
-
-        bookShelf.appendChild(bookCard);
-    }
+            bookShelf.appendChild(bookCard);
+        }
+    };
 };
 
 let newBookBtn = document.getElementById('new-book-btn');
@@ -99,7 +99,7 @@ newBookBtn.addEventListener('click', function() {
 
 document.getElementById('submit-btn').addEventListener('click', function(e) {
     e.preventDefault();
-    addBookToLibrary();
+    Book.addBookToLibrary();
 });
 
 document.getElementById('cancel-btn').addEventListener('click', function(e) {
